@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="es" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="zodiac_sign.aries" resname="zodiac_sign.aries">
+        <source>zodiac_sign.aries</source>
+        <target>Aries</target>
+      </trans-unit>
+      <trans-unit id="zodiac_sign.taurus" resname="zodiac_sign.taurus">
+        <source>zodiac_sign.taurus</source>
+        <target>Tauro</target>
+      </trans-unit>
+      <trans-unit id="zodiac_sign.gemini" resname="zodiac_sign.gemini">
+        <source>zodiac_sign.gemini</source>
+        <target>Géminis</target>
+      </trans-unit>
+      <trans-unit id="zodiac_sign.cancer" resname="zodiac_sign.cancer">
+        <source>zodiac_sign.cancer</source>
+        <target>Cáncer</target>
+      </trans-unit>
+      <trans-unit id="zodiac_sign.leo" resname="zodiac_sign.leo">
+        <source>zodiac_sign.leo</source>
+        <target>Leo</target>
+      </trans-unit>
+      <trans-unit id="zodiac_sign.virgo" resname="zodiac_sign.virgo">
+        <source>zodiac_sign.virgo</source>
+        <target>Virgo</target>
+      </trans-unit>
+      <trans-unit id="zodiac_sign.libra" resname="zodiac_sign.libra">
+        <source>zodiac_sign.libra</source>
+        <target>Libra</target>
+      </trans-unit>
+      <trans-unit id="zodiac_sign.scorpio" resname="zodiac_sign.scorpio">
+        <source>zodiac_sign.scorpio</source>
+        <target>Escorpio</target>
+      </trans-unit>
+      <trans-unit id="zodiac_sign.sagittarius" resname="zodiac_sign.sagittarius">
+        <source>zodiac_sign.sagittarius</source>
+        <target>Sagitario</target>
+      </trans-unit>
+      <trans-unit id="zodiac_sign.capricorn" resname="zodiac_sign.capricorn">
+        <source>zodiac_sign.capricorn</source>
+        <target>Capricornio</target>
+      </trans-unit>
+      <trans-unit id="zodiac_sign.aquarius" resname="zodiac_sign.aquarius">
+        <source>zodiac_sign.aquarius</source>
+        <target>Acuario</target>
+      </trans-unit>
+      <trans-unit id="zodiac_sign.pisces" resname="zodiac_sign.pisces">
+        <source>zodiac_sign.pisces</source>
+        <target>Piscis</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
