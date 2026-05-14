@@ -50,6 +50,54 @@
         <source>zodiac_sign.pisces</source>
         <target>Poissons</target>
       </trans-unit>
+      <trans-unit id="chinese_zodiac_sign.rat" resname="chinese_zodiac_sign.rat">
+        <source>chinese_zodiac_sign.rat</source>
+        <target>Rat</target>
+      </trans-unit>
+      <trans-unit id="chinese_zodiac_sign.ox" resname="chinese_zodiac_sign.ox">
+        <source>chinese_zodiac_sign.ox</source>
+        <target>Bœuf</target>
+      </trans-unit>
+      <trans-unit id="chinese_zodiac_sign.tiger" resname="chinese_zodiac_sign.tiger">
+        <source>chinese_zodiac_sign.tiger</source>
+        <target>Tigre</target>
+      </trans-unit>
+      <trans-unit id="chinese_zodiac_sign.rabbit" resname="chinese_zodiac_sign.rabbit">
+        <source>chinese_zodiac_sign.rabbit</source>
+        <target>Lapin</target>
+      </trans-unit>
+      <trans-unit id="chinese_zodiac_sign.dragon" resname="chinese_zodiac_sign.dragon">
+        <source>chinese_zodiac_sign.dragon</source>
+        <target>Dragon</target>
+      </trans-unit>
+      <trans-unit id="chinese_zodiac_sign.snake" resname="chinese_zodiac_sign.snake">
+        <source>chinese_zodiac_sign.snake</source>
+        <target>Serpent</target>
+      </trans-unit>
+      <trans-unit id="chinese_zodiac_sign.horse" resname="chinese_zodiac_sign.horse">
+        <source>chinese_zodiac_sign.horse</source>
+        <target>Cheval</target>
+      </trans-unit>
+      <trans-unit id="chinese_zodiac_sign.goat" resname="chinese_zodiac_sign.goat">
+        <source>chinese_zodiac_sign.goat</source>
+        <target>Chèvre</target>
+      </trans-unit>
+      <trans-unit id="chinese_zodiac_sign.monkey" resname="chinese_zodiac_sign.monkey">
+        <source>chinese_zodiac_sign.monkey</source>
+        <target>Singe</target>
+      </trans-unit>
+      <trans-unit id="chinese_zodiac_sign.rooster" resname="chinese_zodiac_sign.rooster">
+        <source>chinese_zodiac_sign.rooster</source>
+        <target>Coq</target>
+      </trans-unit>
+      <trans-unit id="chinese_zodiac_sign.dog" resname="chinese_zodiac_sign.dog">
+        <source>chinese_zodiac_sign.dog</source>
+        <target>Chien</target>
+      </trans-unit>
+      <trans-unit id="chinese_zodiac_sign.pig" resname="chinese_zodiac_sign.pig">
+        <source>chinese_zodiac_sign.pig</source>
+        <target>Cochon</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
