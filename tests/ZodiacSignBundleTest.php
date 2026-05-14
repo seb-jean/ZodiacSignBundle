@@ -4,6 +4,7 @@ namespace SebJean\ZodiacSignBundle\Tests;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use SebJean\ZodiacSignBundle\ChineseZodiacCalculator;
 use SebJean\ZodiacSignBundle\Twig\ZodiacSignExtension;
 use SebJean\ZodiacSignBundle\ZodiacSignBundle;
 use SebJean\ZodiacSignBundle\ZodiacSignCalculator;
@@ -27,6 +28,7 @@ class ZodiacSignBundleTest extends TestCase
         $bundle->loadExtension([], $configurator, $container);
 
         $this->assertTrue($container->hasDefinition(ZodiacSignCalculator::class));
+        $this->assertTrue($container->hasDefinition(ChineseZodiacCalculator::class));
         $this->assertTrue($container->hasDefinition(ZodiacSignExtension::class));
     }
 }

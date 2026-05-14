@@ -32,6 +32,7 @@ class ZodiacSignTest extends TestCase
         $this->assertSame($expectedEnd, $sign->getEndDate()->format('m-d'));
     }
 
+    /** @return array<string, array{ZodiacSign, string}> */
     public static function enumValueProvider(): array
     {
         return [
@@ -50,6 +51,7 @@ class ZodiacSignTest extends TestCase
         ];
     }
 
+    /** @return array<string, array{ZodiacSign, string}> */
     public static function symbolProvider(): array
     {
         return [
@@ -68,6 +70,7 @@ class ZodiacSignTest extends TestCase
         ];
     }
 
+    /** @return array<string, array{ZodiacSign, string, string}> */
     public static function dateRangeProvider(): array
     {
         return [
@@ -130,6 +133,7 @@ class ZodiacSignTest extends TestCase
         $this->assertSame($shouldContain, $sign->contains($datePoint));
     }
 
+    /** @return array<string, array{ZodiacSign, string, bool}> */
     public static function dateRangeProviderForContains(): array
     {
         return [

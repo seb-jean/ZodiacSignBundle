@@ -1,6 +1,6 @@
 {
     "name": "seb-jean/zodiac-sign-bundle",
-  "description": "This bundle allows you to resolve the zodiac sign from various data types.",
+    "description": "This bundle allows you to resolve the zodiac sign from various data types.",
     "type": "symfony-bundle",
     "license": "MIT",
     "autoload": {
@@ -29,6 +29,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^11.5",
-        "symfony/framework-bundle": "^7.3"
+        "symfony/framework-bundle": "^7.3",
+        "phpstan/phpstan": "^2.0",
+        "friendsofphp/php-cs-fixer": "^3.0"
     }
 }

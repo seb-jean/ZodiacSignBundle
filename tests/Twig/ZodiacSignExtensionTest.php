@@ -28,7 +28,6 @@ class ZodiacSignExtensionTest extends TestCase
     {
         $filters = $this->extension->getFilters();
 
-        $this->assertIsArray($filters);
         $this->assertCount(2, $filters);
         $this->assertContainsOnlyInstancesOf(TwigFilter::class, $filters);
 
@@ -49,7 +48,6 @@ class ZodiacSignExtensionTest extends TestCase
     {
         $functions = $this->extension->getFunctions();
 
-        $this->assertIsArray($functions);
         $this->assertCount(2, $functions);
         $this->assertContainsOnlyInstancesOf(TwigFunction::class, $functions);
 
@@ -67,7 +65,7 @@ class ZodiacSignExtensionTest extends TestCase
     }
 
     #[DataProvider('zodiacSignTwigProvider')]
-    public function testTwigIntegration($date, string $expectedValue, string $expectedSymbol): void
+    public function testTwigIntegration(\DateTimeInterface|string|int $date, string $expectedValue, string $expectedSymbol): void
     {
         $context = ['date' => $date];
 
@@ -84,6 +82,7 @@ class ZodiacSignExtensionTest extends TestCase
         $this->assertSame($expectedSymbol, $twigFunctionSymbol->render('test.html.twig', $context));
     }
 
+    /** @return array<string, array{\DateTimeInterface|string|int, string, string}> */
     public static function zodiacSignTwigProvider(): array
     {
         return [

@@ -69,6 +69,7 @@ class ZodiacSignCalculatorTest extends TestCase
         $this->calculator->calculateZodiacSign('invalid-date');
     }
 
+    /** @return array<string, array{string, ZodiacSign}> */
     public static function zodiacSignProvider(): array
     {
         return [
@@ -122,6 +123,7 @@ class ZodiacSignCalculatorTest extends TestCase
         ];
     }
 
+    /** @return array<string, array{int, ZodiacSign}> */
     public static function zodiacSignTimestampProvider(): array
     {
         return [

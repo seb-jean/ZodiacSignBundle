@@ -47,6 +47,7 @@ class ChineseZodiacCalculatorTest extends TestCase
         $this->assertInstanceOf(ChineseZodiacSign::class, $result);
     }
 
+    /** @return array<string, array{string, ChineseZodiacSign}> */
     public static function dateSignProvider(): array
     {
         return [

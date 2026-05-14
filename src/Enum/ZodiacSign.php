@@ -54,6 +54,7 @@ enum ZodiacSign: string implements TranslatableInterface
         return DatePoint::createFromFormat('!m-d', $this->getRangeDate()['end'], new \DateTimeZone('UTC'));
     }
 
+    /** @return array{start: string, end: string} */
     private function getRangeDate(): array
     {
         return match ($this) {
