@@ -2,6 +2,7 @@
 
 namespace SebJean\ZodiacSignBundle\Enum;
 
+use SebJean\ZodiacSignBundle\DateRange;
 use Symfony\Component\Clock\DatePoint;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -71,6 +72,19 @@ enum ZodiacSign: string implements TranslatableInterface
             self::Sagittarius => ['start' => '11-22', 'end' => '12-21'],
             self::Capricorn => ['start' => '12-22', 'end' => '01-19'],
         };
+    }
+
+    public function getPeriod(int $year): DateRange
+    {
+        $range = $this->getRangeDate();
+
+        // Capricorn spans the year boundary: Dec 22 → Jan 19 of the following year
+        $endYear = self::Capricorn === $this ? $year + 1 : $year;
+
+        $start = DatePoint::createFromFormat('!Y-m-d', \sprintf('%d-%s', $year, $range['start']), new \DateTimeZone('UTC'));
+        $end = DatePoint::createFromFormat('!Y-m-d', \sprintf('%d-%s', $endYear, $range['end']), new \DateTimeZone('UTC'));
+
+        return new DateRange($start, $end);
     }
 
     public function contains(DatePoint $originalDatePoint): bool

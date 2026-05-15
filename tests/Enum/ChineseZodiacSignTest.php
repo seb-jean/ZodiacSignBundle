@@ -3,6 +3,7 @@
 namespace SebJean\ZodiacSignBundle\Tests\Enum;
 
 use PHPUnit\Framework\TestCase;
+use SebJean\ZodiacSignBundle\DateRange;
 use SebJean\ZodiacSignBundle\Enum\ChineseZodiacSign;
 
 class ChineseZodiacSignTest extends TestCase
@@ -28,6 +29,34 @@ class ChineseZodiacSignTest extends TestCase
         $this->assertSame('rooster', ChineseZodiacSign::Rooster->value);
         $this->assertSame('dog', ChineseZodiacSign::Dog->value);
         $this->assertSame('pig', ChineseZodiacSign::Pig->value);
+    }
+
+    public function testGetPeriodReturnsCorrectRange(): void
+    {
+        // Dragon year 2024: Feb 10, 2024 → Feb 9, 2025 (excludeEnd)
+        $period = ChineseZodiacSign::Dragon->getPeriod(2024);
+
+        $this->assertInstanceOf(DateRange::class, $period);
+        $this->assertTrue($period->contains(new \DateTimeImmutable('2024-02-10')));
+        $this->assertTrue($period->contains(new \DateTimeImmutable('2024-12-31')));
+        $this->assertFalse($period->contains(new \DateTimeImmutable('2024-02-09')));
+        $this->assertFalse($period->contains(new \DateTimeImmutable('2025-01-29'))); // Snake starts
+    }
+
+    public function testGetPeriodWorksWhenSignSpillsIntoNextYear(): void
+    {
+        // Dragon 2024 starts Feb 10, 2024, so asking for Dragon in 2025 (before CNY 2025)
+        // should return the same period
+        $period = ChineseZodiacSign::Dragon->getPeriod(2025);
+
+        $this->assertTrue($period->contains(new \DateTimeImmutable('2024-06-01')));
+    }
+
+    public function testGetPeriodThrowsForInvalidYear(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        // Rooster does not appear in 2024 (Dragon) or 2025 (Snake)
+        ChineseZodiacSign::Rooster->getPeriod(2025);
     }
 
     public function testGetSymbol(): void

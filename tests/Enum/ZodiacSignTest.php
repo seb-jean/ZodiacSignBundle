@@ -5,6 +5,7 @@ namespace SebJean\ZodiacSignBundle\Tests\Enum;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use SebJean\ZodiacSignBundle\DateRange;
 use SebJean\ZodiacSignBundle\Enum\ZodiacSign;
 use Symfony\Component\Clock\DatePoint;
 use Symfony\Component\Translation\Loader\ArrayLoader;
@@ -87,6 +88,24 @@ class ZodiacSignTest extends TestCase
             'Sagittarius' => [ZodiacSign::Sagittarius, '11-22', '12-21'],
             'Capricorn' => [ZodiacSign::Capricorn, '12-22', '01-19'],
         ];
+    }
+
+    public function testGetPeriodReturnsCorrectRange(): void
+    {
+        $period = ZodiacSign::Aries->getPeriod(2024);
+
+        $this->assertInstanceOf(DateRange::class, $period);
+        $this->assertTrue($period->contains(new \DateTimeImmutable('2024-04-01')));
+        $this->assertFalse($period->contains(new \DateTimeImmutable('2024-05-01')));
+    }
+
+    public function testGetPeriodCapricornSpansYearBoundary(): void
+    {
+        $period = ZodiacSign::Capricorn->getPeriod(2024);
+
+        $this->assertTrue($period->contains(new \DateTimeImmutable('2024-12-25')));
+        $this->assertTrue($period->contains(new \DateTimeImmutable('2025-01-10')));
+        $this->assertFalse($period->contains(new \DateTimeImmutable('2025-01-20')));
     }
 
     public function testTrans(): void
