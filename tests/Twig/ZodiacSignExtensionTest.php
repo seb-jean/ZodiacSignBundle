@@ -5,6 +5,7 @@ namespace SebJean\ZodiacSignBundle\Tests\Twig;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use SebJean\ZodiacSignBundle\ChineseZodiacCalculator;
 use SebJean\ZodiacSignBundle\Twig\ZodiacSignExtension;
 use SebJean\ZodiacSignBundle\ZodiacSignCalculator;
 use Twig\Environment;
@@ -27,38 +28,44 @@ class ZodiacSignExtensionTest extends TestCase
     {
         $filters = $this->extension->getFilters();
 
-        $this->assertIsArray($filters);
-        $this->assertCount(1, $filters);
+        $this->assertCount(2, $filters);
         $this->assertContainsOnlyInstancesOf(TwigFilter::class, $filters);
 
-        $filter = $filters[0];
-        $this->assertSame('zodiac_sign', $filter->getName());
-
-        $callable = $filter->getCallable();
+        $callable = $filters[0]->getCallable();
+        $this->assertSame('zodiac_sign', $filters[0]->getName());
         $this->assertIsArray($callable);
         $this->assertSame(ZodiacSignCalculator::class, $callable[0]);
         $this->assertSame('calculateZodiacSign', $callable[1]);
+
+        $callable = $filters[1]->getCallable();
+        $this->assertSame('chinese_zodiac_sign', $filters[1]->getName());
+        $this->assertIsArray($callable);
+        $this->assertSame(ChineseZodiacCalculator::class, $callable[0]);
+        $this->assertSame('calculateChineseZodiacSign', $callable[1]);
     }
 
     public function testGetFunctions(): void
     {
         $functions = $this->extension->getFunctions();
 
-        $this->assertIsArray($functions);
-        $this->assertCount(1, $functions);
+        $this->assertCount(2, $functions);
         $this->assertContainsOnlyInstancesOf(TwigFunction::class, $functions);
 
-        $function = $functions[0];
-        $this->assertSame('zodiac_sign', $function->getName());
-
-        $callable = $function->getCallable();
+        $callable = $functions[0]->getCallable();
+        $this->assertSame('zodiac_sign', $functions[0]->getName());
         $this->assertIsArray($callable);
         $this->assertSame(ZodiacSignCalculator::class, $callable[0]);
         $this->assertSame('calculateZodiacSign', $callable[1]);
+
+        $callable = $functions[1]->getCallable();
+        $this->assertSame('chinese_zodiac_sign', $functions[1]->getName());
+        $this->assertIsArray($callable);
+        $this->assertSame(ChineseZodiacCalculator::class, $callable[0]);
+        $this->assertSame('calculateChineseZodiacSign', $callable[1]);
     }
 
     #[DataProvider('zodiacSignTwigProvider')]
-    public function testTwigIntegration($date, string $expectedValue, string $expectedSymbol): void
+    public function testTwigIntegration(\DateTimeInterface|string|int $date, string $expectedValue, string $expectedSymbol): void
     {
         $context = ['date' => $date];
 
@@ -75,6 +82,7 @@ class ZodiacSignExtensionTest extends TestCase
         $this->assertSame($expectedSymbol, $twigFunctionSymbol->render('test.html.twig', $context));
     }
 
+    /** @return array<string, array{\DateTimeInterface|string|int, string, string}> */
     public static function zodiacSignTwigProvider(): array
     {
         return [
@@ -103,11 +111,11 @@ class ZodiacSignExtensionTest extends TestCase
         $twig->addRuntimeLoader(new class implements RuntimeLoaderInterface {
             public function load(string $class): ?object
             {
-                if (ZodiacSignCalculator::class === $class) {
-                    return new ZodiacSignCalculator();
-                }
-
-                return null;
+                return match ($class) {
+                    ZodiacSignCalculator::class => new ZodiacSignCalculator(),
+                    ChineseZodiacCalculator::class => new ChineseZodiacCalculator(),
+                    default => null,
+                };
             }
         });
 

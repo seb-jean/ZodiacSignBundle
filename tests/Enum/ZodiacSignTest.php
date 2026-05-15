@@ -5,6 +5,7 @@ namespace SebJean\ZodiacSignBundle\Tests\Enum;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use SebJean\ZodiacSignBundle\DateRange;
 use SebJean\ZodiacSignBundle\Enum\ZodiacSign;
 use Symfony\Component\Clock\DatePoint;
 use Symfony\Component\Translation\Loader\ArrayLoader;
@@ -32,6 +33,7 @@ class ZodiacSignTest extends TestCase
         $this->assertSame($expectedEnd, $sign->getEndDate()->format('m-d'));
     }
 
+    /** @return array<string, array{ZodiacSign, string}> */
     public static function enumValueProvider(): array
     {
         return [
@@ -50,6 +52,7 @@ class ZodiacSignTest extends TestCase
         ];
     }
 
+    /** @return array<string, array{ZodiacSign, string}> */
     public static function symbolProvider(): array
     {
         return [
@@ -68,6 +71,7 @@ class ZodiacSignTest extends TestCase
         ];
     }
 
+    /** @return array<string, array{ZodiacSign, string, string}> */
     public static function dateRangeProvider(): array
     {
         return [
@@ -84,6 +88,24 @@ class ZodiacSignTest extends TestCase
             'Sagittarius' => [ZodiacSign::Sagittarius, '11-22', '12-21'],
             'Capricorn' => [ZodiacSign::Capricorn, '12-22', '01-19'],
         ];
+    }
+
+    public function testGetPeriodReturnsCorrectRange(): void
+    {
+        $period = ZodiacSign::Aries->getPeriod();
+
+        $this->assertInstanceOf(DateRange::class, $period);
+        $this->assertSame('03-21', $period->getStart()->format('m-d'));
+        $this->assertSame('04-19', $period->getEnd()->format('m-d'));
+    }
+
+    public function testGetPeriodContainsDate(): void
+    {
+        $period = ZodiacSign::Leo->getPeriod();
+
+        // DateRange uses year-agnostic dates (1970 as reference): compare m-d only
+        $this->assertTrue($period->contains(new \DateTimeImmutable('1970-08-01')));
+        $this->assertFalse($period->contains(new \DateTimeImmutable('1970-09-01')));
     }
 
     public function testTrans(): void
@@ -130,6 +152,7 @@ class ZodiacSignTest extends TestCase
         $this->assertSame($shouldContain, $sign->contains($datePoint));
     }
 
+    /** @return array<string, array{ZodiacSign, string, bool}> */
     public static function dateRangeProviderForContains(): array
     {
         return [
