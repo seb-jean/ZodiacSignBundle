@@ -99,6 +99,15 @@ class ZodiacSignTest extends TestCase
         $this->assertFalse($period->contains(new \DateTimeImmutable('2024-05-01')));
     }
 
+    public function testGetPeriodWithoutYearUsesCurrentYear(): void
+    {
+        $period = ZodiacSign::Aries->getPeriod();
+
+        $currentYear = (int) (new \DateTimeImmutable())->format('Y');
+        $this->assertInstanceOf(DateRange::class, $period);
+        $this->assertTrue($period->contains(new \DateTimeImmutable($currentYear.'-04-01')));
+    }
+
     public function testGetPeriodCapricornSpansYearBoundary(): void
     {
         $period = ZodiacSign::Capricorn->getPeriod(2024);

@@ -74,8 +74,9 @@ enum ZodiacSign: string implements TranslatableInterface
         };
     }
 
-    public function getPeriod(int $year): DateRange
+    public function getPeriod(?int $year = null): DateRange
     {
+        $year ??= (int) (new DatePoint())->format('Y');
         $range = $this->getRangeDate();
 
         // Capricorn spans the year boundary: Dec 22 → Jan 19 of the following year

@@ -4,6 +4,7 @@ namespace SebJean\ZodiacSignBundle\Enum;
 
 use SebJean\ZodiacSignBundle\Chinese\ChineseNewYearCalculator;
 use SebJean\ZodiacSignBundle\DateRange;
+use Symfony\Component\Clock\DatePoint;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -27,8 +28,10 @@ enum ChineseZodiacSign: string implements TranslatableInterface
         return $translator->trans('chinese_zodiac_sign.'.$this->value, domain: 'ZodiacSignBundle', locale: $locale);
     }
 
-    public function getPeriod(int $year): DateRange
+    public function getPeriod(?int $year = null): DateRange
     {
+        $year ??= (int) (new DatePoint())->format('Y');
+
         // Find the year in which this sign's cycle starts
         $startYear = $year;
         if (ChineseNewYearCalculator::signForYear($year) !== $this) {
