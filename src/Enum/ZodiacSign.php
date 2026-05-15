@@ -74,18 +74,9 @@ enum ZodiacSign: string implements TranslatableInterface
         };
     }
 
-    public function getPeriod(?int $year = null): DateRange
+    public function getPeriod(): DateRange
     {
-        $year ??= (int) (new DatePoint())->format('Y');
-        $range = $this->getRangeDate();
-
-        // Capricorn spans the year boundary: Dec 22 → Jan 19 of the following year
-        $endYear = self::Capricorn === $this ? $year + 1 : $year;
-
-        $start = DatePoint::createFromFormat('!Y-m-d', \sprintf('%d-%s', $year, $range['start']), new \DateTimeZone('UTC'));
-        $end = DatePoint::createFromFormat('!Y-m-d', \sprintf('%d-%s', $endYear, $range['end']), new \DateTimeZone('UTC'));
-
-        return new DateRange($start, $end);
+        return new DateRange($this->getStartDate(), $this->getEndDate());
     }
 
     public function contains(DatePoint $originalDatePoint): bool

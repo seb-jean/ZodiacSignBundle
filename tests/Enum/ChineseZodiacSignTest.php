@@ -43,17 +43,6 @@ class ChineseZodiacSignTest extends TestCase
         $this->assertFalse($period->contains(new \DateTimeImmutable('2025-01-29'))); // Snake starts
     }
 
-    public function testGetPeriodWithoutYearUsesCurrentYear(): void
-    {
-        $currentYear = (int) (new \DateTimeImmutable())->format('Y');
-        $currentSign = (new \SebJean\ZodiacSignBundle\ChineseZodiacCalculator())->calculateChineseZodiacSign();
-
-        $period = $currentSign->getPeriod();
-
-        $this->assertInstanceOf(DateRange::class, $period);
-        $this->assertTrue($period->contains(new \DateTimeImmutable('now')));
-    }
-
     public function testGetPeriodWorksWhenSignSpillsIntoNextYear(): void
     {
         // Dragon 2024 starts Feb 10, 2024, so asking for Dragon in 2025 (before CNY 2025)

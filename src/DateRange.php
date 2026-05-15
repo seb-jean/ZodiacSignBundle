@@ -11,6 +11,16 @@ final class DateRange implements \Stringable
     ) {
     }
 
+    public function getStart(): \DateTimeImmutable
+    {
+        return $this->start;
+    }
+
+    public function getEnd(): \DateTimeImmutable
+    {
+        return $this->end;
+    }
+
     public function contains(\DateTimeInterface $date): bool
     {
         if ($this->excludeEnd) {

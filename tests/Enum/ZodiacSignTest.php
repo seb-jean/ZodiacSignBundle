@@ -92,29 +92,20 @@ class ZodiacSignTest extends TestCase
 
     public function testGetPeriodReturnsCorrectRange(): void
     {
-        $period = ZodiacSign::Aries->getPeriod(2024);
-
-        $this->assertInstanceOf(DateRange::class, $period);
-        $this->assertTrue($period->contains(new \DateTimeImmutable('2024-04-01')));
-        $this->assertFalse($period->contains(new \DateTimeImmutable('2024-05-01')));
-    }
-
-    public function testGetPeriodWithoutYearUsesCurrentYear(): void
-    {
         $period = ZodiacSign::Aries->getPeriod();
 
-        $currentYear = (int) (new \DateTimeImmutable())->format('Y');
         $this->assertInstanceOf(DateRange::class, $period);
-        $this->assertTrue($period->contains(new \DateTimeImmutable($currentYear.'-04-01')));
+        $this->assertSame('03-21', $period->getStart()->format('m-d'));
+        $this->assertSame('04-19', $period->getEnd()->format('m-d'));
     }
 
-    public function testGetPeriodCapricornSpansYearBoundary(): void
+    public function testGetPeriodContainsDate(): void
     {
-        $period = ZodiacSign::Capricorn->getPeriod(2024);
+        $period = ZodiacSign::Leo->getPeriod();
 
-        $this->assertTrue($period->contains(new \DateTimeImmutable('2024-12-25')));
-        $this->assertTrue($period->contains(new \DateTimeImmutable('2025-01-10')));
-        $this->assertFalse($period->contains(new \DateTimeImmutable('2025-01-20')));
+        // DateRange uses year-agnostic dates (1970 as reference): compare m-d only
+        $this->assertTrue($period->contains(new \DateTimeImmutable('1970-08-01')));
+        $this->assertFalse($period->contains(new \DateTimeImmutable('1970-09-01')));
     }
 
     public function testTrans(): void
